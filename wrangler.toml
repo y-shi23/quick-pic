@@ -1,0 +1,22 @@
+name = "quick-pic"
+compatibility_date = "2024-01-01"
+
+# Cloudflare Pages 配置
+pages_build_output_dir = "dist"
+
+[site]
+bucket = "./dist"
+
+# 环境变量（如果需要）
+[vars]
+# 在这里添加环境变量
+
+# 构建配置
+[build]
+command = "npm run build"
+cwd = ""
+watch_dir = "src"
+
+# 开发环境配置
+[dev]
+port = 3000
