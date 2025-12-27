@@ -15,13 +15,24 @@
 
     <div class="upload-section">
       <input type="file" id="imageInput" accept="image/*" style="display: none;">
-      <button id="uploadBtn" class="upload-btn">选择图片</button>
+      <div id="uploadArea" class="upload-area">
+        <span class="upload-icon">🖼️</span>
+        <div class="upload-text">拖拽图片到此处或点击上传</div>
+        <div class="upload-hint">支持 JPG、PNG、GIF 等格式</div>
+        <button id="uploadBtn" class="upload-btn">
+          <span>📁</span>
+          <span>选择图片</span>
+        </button>
+      </div>
     </div>
 
     <div id="editorSection" class="editor-section" style="display: none;">
       <div class="controls-panel">
         <div class="control-group">
-          <label for="maskOpacity">蒙版透明度</label>
+          <label for="maskOpacity">
+            <span class="label-icon">🎭</span>
+            <span>蒙版透明度</span>
+          </label>
           <div class="slider-container">
             <input type="range" id="maskOpacity" min="0" max="100" value="0" step="1">
             <span id="maskOpacityValue">0%</span>
@@ -29,12 +40,18 @@
         </div>
 
         <div class="control-group">
-          <label for="maskColor">蒙版颜色</label>
+          <label for="maskColor">
+            <span class="label-icon">🎨</span>
+            <span>蒙版颜色</span>
+          </label>
           <input type="color" id="maskColor" value="#000000">
         </div>
 
         <div class="control-group">
-          <label for="imageOpacity">图片透明度</label>
+          <label for="imageOpacity">
+            <span class="label-icon">💧</span>
+            <span>图片透明度</span>
+          </label>
           <div class="slider-container">
             <input type="range" id="imageOpacity" min="0" max="100" value="100" step="1">
             <span id="imageOpacityValue">100%</span>
@@ -42,7 +59,10 @@
         </div>
 
         <div class="control-group">
-          <label for="blurAmount">模糊程度</label>
+          <label for="blurAmount">
+            <span class="label-icon">🌫️</span>
+            <span>模糊程度</span>
+          </label>
           <div class="slider-container">
             <input type="range" id="blurAmount" min="0" max="20" value="0" step="0.5">
             <span id="blurAmountValue">0px</span>
@@ -50,8 +70,14 @@
         </div>
 
         <div class="button-group">
-          <button id="resetBtn" class="btn btn-secondary">重置</button>
-          <button id="downloadBtn" class="btn btn-primary">下载图片</button>
+          <button id="resetBtn" class="btn btn-secondary">
+            <span>🔄</span>
+            <span>重置</span>
+          </button>
+          <button id="downloadBtn" class="btn btn-primary">
+            <span>⬇️</span>
+            <span>下载图片</span>
+          </button>
         </div>
       </div>
 

@@ -123,6 +123,7 @@ function initApp(): void {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
   const imageInput = document.getElementById('imageInput') as HTMLInputElement;
   const uploadBtn = document.getElementById('uploadBtn') as HTMLButtonElement;
+  const uploadArea = document.getElementById('uploadArea') as HTMLDivElement;
   const editorSection = document.getElementById('editorSection') as HTMLDivElement;
 
   const maskOpacitySlider = document.getElementById('maskOpacity') as HTMLInputElement;
@@ -140,8 +141,31 @@ function initApp(): void {
 
   const processor = new ImageProcessor(canvas);
 
+  // 处理图片加载
+  const handleImageLoad = async (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      alert('请选择有效的图片文件');
+      return;
+    }
+
+    try {
+      await processor.loadImage(file);
+      editorSection.style.display = 'flex';
+      uploadArea.style.display = 'none';
+    } catch (error) {
+      alert('图片加载失败,请重试');
+      console.error(error);
+    }
+  };
+
   // 点击上传按钮
-  uploadBtn.addEventListener('click', () => {
+  uploadBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    imageInput.click();
+  });
+
+  // 点击上传区域
+  uploadArea.addEventListener('click', () => {
     imageInput.click();
   });
 
@@ -149,15 +173,33 @@ function initApp(): void {
   imageInput.addEventListener('change', async (e) => {
     const target = e.target as HTMLInputElement;
     const file = target.files?.[0];
-
     if (file) {
-      try {
-        await processor.loadImage(file);
-        editorSection.style.display = 'flex';
-      } catch (error) {
-        alert('图片加载失败,请重试');
-        console.error(error);
-      }
+      await handleImageLoad(file);
+    }
+  });
+
+  // 拖拽上传功能
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadArea.classList.add('drag-over');
+  });
+
+  uploadArea.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadArea.classList.remove('drag-over');
+  });
+
+  uploadArea.addEventListener('drop', async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadArea.classList.remove('drag-over');
+
+    const files = e.dataTransfer?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      await handleImageLoad(file);
     }
   });
 
